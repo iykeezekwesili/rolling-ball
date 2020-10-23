@@ -1,37 +1,223 @@
-## Welcome to GitHub Pages
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" 
+	content="width=device-width, initial-scale=1">
+<title>Ping-Pong</title>
+<script src="web-plugins/jQuery-3.4.1.js"></script>
+<style>
+	#startPing{
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+	}
+	
+	.ball{
+		position: absolute;
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+		opacity: 0.8;
+		transition: 1s;
+	}
+</style>
+</head>
 
-You can use the [editor on GitHub](https://github.com/iykeezekwesili/rolling-ball/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+<body>
+	<button type="button" id="startPing">Ping a ball (0)</button>
+	
+	<script type="text/javascript">
+		let startPing = document.getElementById("startPing")
+		let maxBall = 10
+		let ballCount = 0
+		
+		startPing.addEventListener("click", function(e){
+			if (ballCount == maxBall) return
+			ballCount = (ballCount == 0) ? 1 : ++ballCount
+			startPing.textContent = "Ping a ball ("+ ballCount +")"
+			new PingPong().startPing() 
+		})
+		
+		function dropBalls(){
+			startPing.textContent = "Ping a ball ("+ ++ballCount +")"
+			new PingPong().startPing() 
+		}
+		
+		let PingPong = function(){
+			let winX = $(window).width()
+			let winY = $(window).height()
+			let colors = ["red", "green", "blue", "yellow", "black"]
+			let _this = this
+			let ball = null
+			let s = 0
+			
+			this.moveBall = function(){
+				this.ball.css({
+					'left':this.x(), 
+					'top':this.y(), 
+					//'background':this.color()
+				})
+				
+				setTimeout(function(){
+					_this.moveBall()
+					_this.s = Math.round((Math.random() * 500)) + 500
+				}, this.s)
+			}
+			
+			this.x = function(){
+				let x = Math.round(Math.random() * winX)
+				x = (x > winX-this.ball.width()) ? winX-this.ball.width() : x
+				return x
+			}
+			
+			this.y = function(){
+				let y = Math.round(Math.random() * winY)
+				y = (y > winY-this.ball.width()) ? winY-this.ball.width() : y
+				return y
+			}
+			
+			this.color = function(){
+				let i = Math.round(Math.random() * colors.length)
+				return colors[i]
+			}
+			
+			this.startPing = function(){
+				this.newBall()
+				this.moveBall()
+			}
+			
+			this.newBall = function(){
+				this.ball = $("<div></div>")
+					.addClass("ball")
+					.css({'background':this.color()})
+					.click(removeball)
+					.appendTo($('body'))
+			}
+		}
+		
+		function removeball(){
+			$(this).hide()
+			startPing.textContent = "Ping a ball ("+ --ballCount +")"
+		}
+		
+		start()
+		function start(){
+			let interval = setInterval(function(){
+				dropBalls()
+				if ($(".ball").length >= maxBall) clearInterval(interval)
+			}, 1000)
+		}
+	</script>
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" 
+	content="width=device-width, initial-scale=1">
+<title>Ping-Pong</title>
+<script src="web-plugins/jQuery-3.4.1.js"></script>
+<style>
+	#startPing{
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+	}
+	
+	.ball{
+		position: absolute;
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+		opacity: 0.8;
+		transition: 1s;
+	}
+</style>
+</head>
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/iykeezekwesili/rolling-ball/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+<body>
+	<button type="button" id="startPing">Ping a ball (0)</button>
+	
+	<script type="text/javascript">
+		let startPing = document.getElementById("startPing")
+		let maxBall = 10
+		let ballCount = 0
+		
+		startPing.addEventListener("click", function(e){
+			if (ballCount == maxBall) return
+			ballCount = (ballCount == 0) ? 1 : ++ballCount
+			startPing.textContent = "Ping a ball ("+ ballCount +")"
+			new PingPong().startPing() 
+		})
+		
+		function dropBalls(){
+			startPing.textContent = "Ping a ball ("+ ++ballCount +")"
+			new PingPong().startPing() 
+		}
+		
+		let PingPong = function(){
+			let winX = $(window).width()
+			let winY = $(window).height()
+			let colors = ["red", "green", "blue", "yellow", "black"]
+			let _this = this
+			let ball = null
+			let s = 0
+			
+			this.moveBall = function(){
+				this.ball.css({
+					'left':this.x(), 
+					'top':this.y(), 
+					//'background':this.color()
+				})
+				
+				setTimeout(function(){
+					_this.moveBall()
+					_this.s = Math.round((Math.random() * 500)) + 500
+				}, this.s)
+			}
+			
+			this.x = function(){
+				let x = Math.round(Math.random() * winX)
+				x = (x > winX-this.ball.width()) ? winX-this.ball.width() : x
+				return x
+			}
+			
+			this.y = function(){
+				let y = Math.round(Math.random() * winY)
+				y = (y > winY-this.ball.width()) ? winY-this.ball.width() : y
+				return y
+			}
+			
+			this.color = function(){
+				let i = Math.round(Math.random() * colors.length)
+				return colors[i]
+			}
+			
+			this.startPing = function(){
+				this.newBall()
+				this.moveBall()
+			}
+			
+			this.newBall = function(){
+				this.ball = $("<div></div>")
+					.addClass("ball")
+					.css({'background':this.color()})
+					.click(removeball)
+					.appendTo($('body'))
+			}
+		}
+		
+		function removeball(){
+			$(this).hide()
+			startPing.textContent = "Ping a ball ("+ --ballCount +")"
+		}
+		
+		start()
+		function start(){
+			let interval = setInterval(function(){
+				dropBalls()
+				if ($(".ball").length >= maxBall) clearInterval(interval)
+			}, 1000)
+		}
+	</script>
+</body>
+</html>
